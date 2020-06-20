@@ -6,8 +6,7 @@
 
 ## 假設我今天去 Google 首頁搜尋框打上：JavaScript 並且按下 Enter，請說出從這一刻開始到我看到搜尋結果為止發生在背後的事情。
 
-瀏覽器會向 Google 發出一個 request，請 Google 幫我到他的資料庫尋找有 JavaScript 關鍵字的網頁，瀏覽器首先會向中華電信詢問 Google 的 ip 位址，中華電信會回傳給我位址，得到 Ｇ oogle 的 ip 位址以後，瀏覽器就會發送 request 到 Google 的伺服器去；Google 收到以後，在他的資料庫裡找到要回傳的資料，接著使用
-response 把資料（文檔）透過中華電信回傳到我的電腦，我的電腦裡的瀏覽器會把收到的文檔解析成我看得懂的畫面。
+瀏覽器會向 Google 發出一個 request，請 Google 幫我到他的資料庫尋找有 JavaScript 關鍵字的網頁，瀏覽器首先會向中華電信詢問 Google 的 ip 位址，中華電信會回傳給我位址，得到 Google 的 ip 位址以後，瀏覽器就會發送 request 到 Google 的伺服器去；Google 收到以後，在他的資料庫裡找到要回傳的資料，接著透過中華電信回傳 response 到我的電腦，我的電腦裡的瀏覽器會把收到的文檔解析成我看得懂的畫面。
 
 ## 請列舉出 3 個「課程沒有提到」的 command line 指令並且說明功用
 
