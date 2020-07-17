@@ -28,7 +28,7 @@ function solve(lines) {
 function isNarcissistic(num) {
   // 判斷 num 是幾位數，let power = 幾位數
   let m = num;
-  let digits = isDigit(m);
+  let digits = digitsCount(m);
   let sum = 0;
   // 判斷 num的 n 次方(power)加總等於自身(num)
   while (m !== 0) {
@@ -39,7 +39,7 @@ function isNarcissistic(num) {
   return sum === num;
 }
 
-function isDigit(num) {
+function digitsCount(num) {
   if (num === 0) return 1;
   let power = 0;
   while (num !== 0) {
