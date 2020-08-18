@@ -1,0 +1,117 @@
+header {
+  border-top: 6px #fad312 solid;
+}
+
+header,
+form {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 30px;
+  font-size: 14px;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 50px 0 30px 0;
+}
+.header p {
+  line-height: 1.5em;
+}
+.header .note {
+  color: #e74149;
+  font-size: 16px;
+}
+
+.form_row {
+  margin: 30px 0;
+}
+
+.form_row label,
+fieldset legend {
+  display: block;
+  font-size: 20px;
+}
+
+fieldset .radio_label {
+  display: inline;
+  font-size: 14px;
+}
+
+.form_row input {
+  margin-top: 15px;
+}
+
+.form_row .other {
+  margin-bottom: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  background-color: #fad312;
+  border: none;
+  padding: 12px 36px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  box-shadow: 3px 3px 7px #a5a08b;
+  transition: transform 0.1s;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+/* 用偽元素加上紅色的米字號 */
+.form_row label::after,
+fieldset legend::after {
+  content: " *";
+  color: #e74149;
+}
+
+fieldset .radio_label::after {
+  content: "";
+}
+
+label + input,
+p + input {
+  width: 50%;
+  margin-left: 1px;
+}
+
+.reminder {
+  margin-bottom: 3rem;
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+  header,
+  form {
+    padding: 0 25%;
+    font-size: 18px;
+  }
+  .header h1 {
+    font-size: 32px;
+  }
+  label + input,
+  p + input {
+    width: 80%;
+    height: 1.5rem;
+    margin-top: 2px;
+    font-size: 16px;
+  }
+  fieldset .radio_label {
+    font-size: 16px;
+  }
+  .btn {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 450px) {
+  .header h1 {
+    font-size: 24px;
+  }
+  label + input,
+  p + input {
+    width: 90%;
+    height: 1.5rem;
+  }
+}
