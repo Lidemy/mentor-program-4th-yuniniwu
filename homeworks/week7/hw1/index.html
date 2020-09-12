@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>新拖延運動報名表單</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>新拖延運動報名表單</h1>
+        <p class="info">
+          活動日期：2020/12/10 ~ 2020/12/11
+          <br />
+          活動地點：台北市大安區新生南路二段1號
+        </p>
+        <p class="note">* 必填</p>
+      </header>
+      <form class="loginForm">
+        <div class="form_row hide_error required">
+          <label for="nickname">暱稱</label>
+          <input
+            type="text"
+            id="nickname"
+            name="nickname"
+            placeholder="您的回答"
+          />
+          <div class="alert">請輸入正確資訊</div>
+        </div>
+
+        <div class="form_row hide_error required">
+          <label for="email">電子郵件</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="您的電子郵件"
+          />
+          <div class="alert">請輸入正確資訊</div>
+        </div>
+
+        <div class="form_row hide_error required">
+          <label for="phonenumber">手機號碼</label>
+          <input
+            type="text"
+            id="phone_number"
+            name="phone_number"
+            placeholder="您的手機號碼"
+          />
+          <div class="alert">請輸入正確資訊</div>
+        </div>
+
+        <!-- 給自己的留言：這邊一定要用fieldset 嗎 -->
+        <fieldset class="form_row hide_error required">
+          <legend>報名類型</legend>
+          <input type="radio" name="types" id="type1" />
+          <label for="type1" class="radio_label">躺在床上用想像力實作</label>
+          <br />
+          <input type="radio" name="types" id="type2" />
+          <label for="type2" class="radio_label">趴在地上滑手機找現成的</label>
+          <div class="alert">請輸入正確資訊</div>
+        </fieldset>
+
+        <div class="form_row hide_error required">
+          <label for="other_info">怎麼知道這個活動的？</label>
+          <input type="text" id="how" name="how" placeholder="您的回答" />
+          <div class="alert">請輸入正確資訊</div>
+        </div>
+
+        <div class="form_row">
+          <label for="suggestion" class="other">其他</label>
+          <p>對活動的一些建議</p>
+          <input
+            type="text"
+            id="suggestion"
+            name="suggestion"
+            placeholder="您的回答"
+          />
+        </div>
+
+        <input type="submit" class="btn" value="提交" />
+        <div class="reminder">請勿透過表單送出您的密碼。</div>
+      </form>
+    </div>
+    <script>
+      // 先幫 submit 加事件，要注意應該加在form上面，而不是只在submit 的按鈕上面
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        // 跳出訊息
+        let hasError = false;
+        let values = {};
+
+        // 拿到input裡的text
+        const inputs = document.querySelectorAll(".form_row input[type=text]");
+
+        const elements = document.querySelectorAll(".required");
+        for (let element of elements) {
+          const radios = element.querySelectorAll("input[type=radio]");
+          const input = element.querySelector("input[type=text]");
+
+          // isValid is used to detect if there is value in input
+          let isValid = true;
+          if (input) {
+            values[input.name] = input.value;
+            if (!input.value) {
+              isValid = false;
+            } else {
+              isValid = true;
+            }
+          } else if (radios.length) {
+            isValid = [...radios].some((radio) => radio.checked);
+            if (isValid) {
+              let r = element.querySelector("input[type=radio]:checked");
+              values[r.name] = r.id;
+            }
+          } else {
+            continue;
+          }
+
+          if (!isValid) {
+            element.classList.remove("hide_error");
+            hasError = true;
+          } else {
+            element.classList.add("hide_error");
+          }
+        }
+        if (!hasError) {
+          alert(JSON.stringify(values));
+        }
+      });
+    </script>
+  </body>
+</html>

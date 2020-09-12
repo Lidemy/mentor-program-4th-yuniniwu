@@ -1,0 +1,119 @@
+<!-- 設計稿：https://github.com/Lidemy/mentor-program-4th/tree/master/homeworks/week6 -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Homepage</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <nav>
+        <div class="logo">Just A Bite!</div>
+        <ul>
+          <li><a href="#">抽個大獎</a></li>
+          <li><a href="#">我要點餐</a></li>
+          <li><a href="#">查詢訂單</a></li>
+          <li class="active"><a href="#">常見問題</a></li>
+        </ul>
+      </nav>
+
+      <!-- FAQ part -->
+      <section class="section">
+        <div class="faq_wrapper">
+          <h2 class="section_title">FAQ - 常見問題</h2>
+          <div class="faq_list faq_hide">
+            <div class="faq_number">Q1:</div>
+            <div class="faq_context">
+              <p class="faq_qestion">如何辦理退貨？</p>
+              <div class="faq_answer">
+                若有尺寸不合或未符期望，可選擇於7日鑑賞期內辦理部分或整筆退貨後再重新訂購。若於7日內需加退商品，請自行負擔寄送運費。為避免爭議發生，請確實收到商品後再進行退貨，商品優惠恕無法合併訂單計算。
+              </div>
+            </div>
+          </div>
+          <div class="faq_list faq_hide">
+            <div class="faq_number">Q2:</div>
+            <div class="faq_context">
+              <p class="faq_qestion">目前提供哪些付款方式？</p>
+              <div class="faq_answer">信用卡、LinePay、ATM轉帳</div>
+            </div>
+          </div>
+          <div class="faq_list faq_hide">
+            <div class="faq_number">Q3:</div>
+            <div class="faq_context">
+              <p class="faq_qestion">線上刷卡如何操作呢？</p>
+              <div class="faq_answer">
+                線上刷卡的使用方式也超簡單，只要您確認您當次的購物清單與金額都無誤，就可立即到匯款上傳系統，登入個人帳號密碼後，點選"線上刷卡方式"，確認收件住址後，再進行刷卡確認程序即可～
+              </div>
+            </div>
+          </div>
+          <div class="faq_list faq_hide">
+            <div class="faq_number">Q4:</div>
+            <div class="faq_context">
+              <p class="faq_qestion">如何查詢目前訂單的處理情況？</p>
+              <div class="faq_answer">至訂單查詢內查詢</div>
+            </div>
+          </div>
+          <div class="faq_list faq_hide faq_height">
+            <div class="faq_number">Q5:</div>
+            <div class="faq_context">
+              <p class="faq_qestion">
+                訂單成立後，是否可以取消或是更改訂單數量及商品？
+              </p>
+              <div class="faq_answer">
+                否。預訂商品與現貨商品因配送時間不同，故僅能分別成立訂單
+              </div>
+            </div>
+          </div>
+          <div class="faq_list faq_hide faq_height">
+            <div class="faq_number">Q6:</div>
+            <div class="faq_context">
+              <p class="faq_qestion">
+                我想購買的商品已經缺貨，什麼時候會進貨呢？
+              </p>
+              <div class="faq_answer">
+                預訂訂單依據製作時間、貨物配送、海關檢驗等概估天數，每款商品到貨天數不盡相同，如提早到貨皆會提早出貨，還請留意且見諒。
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <div class="footer_top">
+        <div class="footer_wrapper">
+          <div class="contact">
+            <p>
+              餐館地址: 天上地下天堂路三分之一里六段520號
+              <br />
+              訂位專線：02-1314-5566
+              <br />
+              營業時間：週一〜週五 09:00~18:00 /
+              週六、週日、國定假日（含連假）休息
+              <br />
+              email：service@justabite.com.tw
+            </p>
+          </div>
+          <div class="social_media">
+            <h3>Just A Bite!</h3>
+            <p>Facebook / Instagram / Youtube</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer_bottom">
+        Copyright © 2020 Just A Bite All Rights Reserved.
+        咬一口股份有限公司版權所有
+      </div>
+    </footer>
+    <script>
+      document
+        .querySelector(".faq_wrapper")
+        .addEventListener("click", function (e) {
+          e.target.closest(".faq_list").classList.toggle("faq_hide");
+        });
+    </script>
+  </body>
+</html>
