@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hw3 to do List</title>
+    <link rel="stylesheet" href="/hw2/reset.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="debug">
+    <div class="wrapper">
+      <h2>TO-DO LIST</h2>
+      <section class="input_item">
+        <input
+          class="input_content"
+          type="text"
+          placeholder="add sth to your list"
+        />
+        <div class="add_btn btn">+</div>
+      </section>
+      <section class="existing_list"></section>
+    </div>
+
+    <script>
+      document
+        .querySelector(".input_item .add_btn")
+        .addEventListener("click", () => {
+          const value = document.querySelector(".input_content").value;
+          if (!value) return;
+
+          const div = document.createElement("div");
+          div.classList.add("items");
+          div.innerHTML = `
+          <div class="content">
+            <span class="checkmark"></span>
+            <input class="todo_check" type="checkbox" />
+            <label class="todo_title" for="checkbox">${escapeHtml(
+              value
+            )}</label>
+          </div>
+          <div class="delete_btn btn">x</div>
+          `;
+          document.querySelector(".existing_list").appendChild(div);
+          document.querySelector(".input_content").value = "";
+        });
+      // 要用event delegation / proxy
+      // 如果直接加在delete＿btn 的話，只會幫第一個加event listener
+      // document.querySelector(".delete_btn").parentNode.remove()
+      // 但第一個是我們動態加上去的，而.delete的eventlistener 是一開始就會執行的，但一開始根本都還沒有.delete，最好的方法是event delegation
+      document
+        .querySelector(".existing_list")
+        .addEventListener("click", (e) => {
+          const { target } = e;
+          // delete todo
+          if (target.classList.contains("delete_btn")) {
+            target.parentNode.remove();
+            return;
+          }
+
+          // checked or not
+          if (target.classList.contains("todo_check")) {
+            if (target.checked) {
+              target.parentNode.classList.add("done");
+            } else {
+              target.parentNode.classList.remove("done");
+            }
+          }
+        });
+      // escape HTML special characters
+      function escapeHtml(unsafe) {
+        return unsafe
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+    </script>
+  </body>
+</html>

@@ -154,10 +154,12 @@
 
     .footer_wrapper {
       width: 80%;
+      max-width: 1280px;
       margin-left: auto;
       margin-right: auto;
+      padding: 0 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
     }
     .footer_bottom {
       background: #35564b;
@@ -165,6 +167,7 @@
       padding: 15px 0;
       text-align: center;
       font-size: 16px;
+      line-height: 1.5rem;
     }
     .footer_top {
       background: #e8efee;
@@ -275,7 +278,8 @@
         flex-direction: column;
       }
       .section .customer {
-        width: 100%;
+        /* width 100% 改成 90% 就不歪了，但不知道為什麼。keronscribe 助教：width設定成100%，會變成boder-box想要到100%視窗範圍，但外面還有一層 margin，於是看起來就歪歪的了  */
+        width: 90%;
         box-sizing: border-box;
         border: 1px #c7e5ec solid;
         margin: 3em 1em;
@@ -365,10 +369,10 @@
           Menu 搶先看
         </h2>
         <div class="section_images">
-          <div><img src="/hw1/asset/f-001.png" alt="" /></div>
-          <div><img src="/hw1/asset/f-002.png" alt="" /></div>
-          <div><img src="/hw1/asset/f-003.png" alt="" /></div>
-          <div><img src="/hw1/asset/f-004.png" alt="" /></div>
+          <div><img src="./asset/f-001.png" alt="" /></div>
+          <div><img src="./asset/f-002.png" alt="" /></div>
+          <div><img src="./asset/f-003.png" alt="" /></div>
+          <div><img src="./asset/f-004.png" alt="" /></div>
         </div>
       </section>
 

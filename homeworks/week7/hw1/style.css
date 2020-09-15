@@ -3,7 +3,7 @@ body {
 }
 .container {
   max-width: 639px;
-  max-height: 1085px;
+  max-height: 1200px;
   margin: auto;
   background-color: #fff;
   box-shadow: 3px 3px 2px rgba(83, 83, 85, 0.5);
@@ -92,6 +92,19 @@ p + input {
 .reminder {
   margin-bottom: 3rem;
 }
+
+.alert {
+  color: #e74149;
+  font-size: 1rem;
+  margin-top: 10px;
+  margin-left: 5px;
+  /* position: absolute; */
+}
+.hide_error .alert {
+  /* display: none; */
+  visibility: hidden;
+}
+
 @media (max-width: 1024px) and (min-width: 450px) {
   header,
   form {
