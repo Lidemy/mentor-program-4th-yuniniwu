@@ -1,0 +1,274 @@
+/* .debug * {
+  outline: 1px goldenrod solid;
+} */
+
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+nav {
+  height: 84px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 24px;
+  box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+}
+
+nav .logo {
+  font-size: 36px;
+  color: #489846;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+nav li {
+  width: 120px;
+  height: 44px;
+  margin-left: 24px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+nav li.active,
+nav li:hover {
+  background-color: #ff7286;
+}
+
+nav li a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 12px 24px;
+}
+
+nav li.active a,
+nav li a:hover {
+  color: white;
+}
+
+.event_intro {
+  background: url(./asset/games-bn@3x.jpg) center/cover no-repeat;
+  padding: 100px;
+  /* for big screen */
+  min-height: 70vmin;
+  position: relative;
+}
+.event_content {
+  background-color: #fff;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 20px;
+  font-size: 36px;
+}
+
+.event_intro h4 {
+  font-size: 24px;
+  color: #5ec1b6;
+  text-align: center;
+}
+.intro_list {
+  display: flex;
+  align-items: start;
+  color: #322929;
+  font-size: 16px;
+  border-bottom: 1px solid #cdcdcd;
+  padding: 20px 0px;
+  line-height: 1.5;
+}
+
+.intro_title {
+  width: 90px;
+  /* height: 30px; */
+  font-size: 18px;
+  font-weight: bold;
+  padding-right: 20px;
+}
+.intro_list p {
+  flex: 1;
+}
+.draw_btn a,
+.draw_again_btn a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #e62a45;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 20px;
+}
+.draw_btn a:hover,
+.draw_again_btn a:hover {
+  background-color: #ff7286;
+  color: #ecdcdc;
+}
+.draw_again_btn {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.footer_wrapper {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer_bottom {
+  background: #35564b;
+  color: white;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.footer_top {
+  background: #e8efee;
+  padding: 32px 0;
+  color: #484848;
+}
+
+.footer_top .social_media {
+  padding-top: 2em;
+}
+
+.footer_top .social_media h3 {
+  color: #489846;
+  font-size: 36px;
+}
+
+.footer_top .social_media p,
+.footer_top .contact {
+  color: #484848;
+  font-size: 14px;
+  line-height: 2em;
+}
+/* hide event content while result was annouced */
+.hide {
+  visibility: hidden;
+}
+.hidden {
+  visibility: hidden;
+}
+/* display result while result was annouced */
+.event_result {
+  min-width: 80%;
+  font-size: 36px;
+  color: #292222;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.result_text {
+  margin-bottom: 50px;
+  text-align: center;
+  color: #fff;
+}
+
+.event_intro.first_prize {
+  background-image: url(./asset/flight-4315953_1920.jpg);
+}
+.event_intro.second_prize {
+  background-image: url(./asset/living-room-1872192_1920.jpg);
+}
+.event_intro.third_prize {
+  background-image: url(./asset/youtube-2617510_1920.jpg);
+}
+.event_intro.none_prize {
+  background: black;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  nav {
+    height: 120px;
+    flex-direction: column;
+    padding: 0px 0px;
+  }
+
+  nav .logo {
+    height: 50%;
+    line-height: 100%;
+    margin-top: 0.5em;
+  }
+
+  nav ul {
+    height: 50%;
+  }
+
+  nav li {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    border-radius: 0px;
+  }
+
+  nav li a {
+    padding: 20px 24px;
+  }
+
+  .footer_wrapper {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .footer_wrapper .contact {
+    line-height: 2em;
+    margin-bottom: 1em;
+  }
+
+  .footer_wrapper .social_media h3 {
+    font-size: 1.5em;
+  }
+
+  .footer_bottom {
+    padding: 12px 24px;
+    font-size: 0.5em;
+  }
+}
+
+@media (max-width: 450px) {
+  .event_intro {
+    padding: 0;
+  }
+  .event_content {
+    border-radius: 0;
+  }
+
+  nav li a {
+    padding: 12px 24px;
+  }
+}
+
+@media (max-width: 320px) {
+  nav ul {
+    font-size: 14px;
+  }
+  .event_content h4 {
+    font-size: 16px;
+  }
+  .intro_list {
+    font-size: 14px;
+  }
+  .intro_title {
+    width: 80px;
+    font-size: 14px;
+    padding: 0;
+  }
+}
