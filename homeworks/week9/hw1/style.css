@@ -52,6 +52,10 @@ form .btn {
   padding: 10px 20px;
 }
 
+main > .wrapper {
+  background-color: #e9ede9;
+}
+
 .user_action {
   border-bottom: 2px solid #608068;
   padding: 20px;
@@ -180,7 +184,6 @@ form .btn {
   main > .wrapper {
     border-radius: 10px;
     box-shadow: 3px 3px 5px #29252577;
-    background-color: #e9ede9;
     margin-top: 120px;
     margin-bottom: 60px;
   }
