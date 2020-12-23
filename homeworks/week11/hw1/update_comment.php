@@ -62,7 +62,7 @@
 
           <form method="POST" action="handle_update_comment.php">
             <!-- textarea 顯示原本的留言 -->
-            <textarea name="message" cols="30" rows="5"><?php echo escape($row['content'])?></textarea>
+            <textarea name="message" cols="30" rows="5"><?php echo escape($row['comment'])?></textarea>
 
             <!-- 加上隱藏的 input 欄位，用來把 id 帶到下一個頁面（handle_update_comment.php） -->
             <input type="hidden" name="id" value="<?php echo $row['id']?>">

@@ -21,23 +21,22 @@
   $stmt = $conn->prepare(
     'SELECT 
       C.id as id,
-      C.content as content,
+      C.comment as content,
       C.created_at as created_at,
       U.nickname as nickname, 
       U.username as username 
     FROM
       yuni_comments as C  
     LEFT JOIN
-      yuni_users as U
-    ON
+      yuni_users as U 
+    ON 
       C.username = U.username 
-    WHERE
+    WHERE 
       C.is_deleted IS NULL 
-    ORDER BY
-      C.id
+    ORDER BY 
+      C.id 
     DESC 
-    LIMIT ?
-    OFFSET ?'
+    LIMIT ? OFFSET ?'
   );
   $stmt->bind_param('ii', $limit, $offset);
   $result= $stmt->execute();
@@ -133,13 +132,15 @@
                 <div class="timeStamp">
                   <?php echo escape($row['created_at']);?>
                 </div>
+              </div>
+              <div class="messageContent">
+                <?php echo escape($row['content']);?>
+              </div>
+              <div class="editContent">
                 <?php if (hasPermission($user, 'update', $row)) { ?>
                   <a href="update_comment.php?id=<?php echo escape($row['id']);?>">編輯</a>
                   <a href="handle_delete_comment.php?id=<?php echo escape($row['id']);?>">刪除</a>
                 <?php }?>
-              </div>
-              <div class="messageContent">
-                <?php echo escape($row['content']);?>
               </div>
             </div>
           </div>

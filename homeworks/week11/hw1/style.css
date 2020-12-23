@@ -4,10 +4,6 @@
   padding: 0;
 }
 
-.debug * {
-  outline: 1px red solid;
-}
-
 header {
   background-color: #c78283;
   color: #fff;
@@ -119,6 +115,7 @@ h4.error {
   white-space: pre-line;
   word-break: break-word;
   overflow-wrap: break-word;
+  margin-bottom: 10px;
 }
 
 .sendMessage h3 {
@@ -179,11 +176,19 @@ h4.error {
 
 .messageList a,
 .userList a {
+  display: block;
   text-decoration: none;
   color: #fff;
   background-color: #c78283;
   padding: 4px 8px;
   border-radius: 3px;
+  margin-right: 10px;
+}
+
+.tdBtn,
+.editContent {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .userTable {
@@ -198,7 +203,7 @@ table th {
 }
 
 td {
-  padding: 12px;
+  padding: 5px;
   text-align: center;
 }
 
@@ -236,5 +241,9 @@ table tr:nth-child(odd) {
 
   .horizonLine {
     width: 90%;
+  }
+
+  td {
+    padding: 12px;
   }
 }

@@ -24,7 +24,7 @@
     exit;
   }
 
-  $sql = "INSERT INTO yuni_comments (content, username) VALUES (?, ?)";
+  $sql = "INSERT INTO yuni_comments (comment, username) VALUES (?, ?)";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param('ss', $content, $username);
   $result = $stmt->execute();

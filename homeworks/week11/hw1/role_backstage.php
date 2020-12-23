@@ -77,7 +77,7 @@
                 }
               ?>
             </td>
-            <td>
+            <td class="tdBtn">
               <?php
                 if ($row['role'] === 'NORMAL') {
               ?>

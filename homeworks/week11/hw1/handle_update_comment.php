@@ -16,9 +16,9 @@
   $content = $_POST['message'];
 
   if (isAdmin($user)) {
-    $sql = 'UPDATE yuni_comments SET content=? WHERE id=?';
+    $sql = 'UPDATE yuni_comments SET comment=? WHERE id=?';
   } else {
-    $sql = 'UPDATE yuni_comments SET content=? WHERE id=? and username=?';
+    $sql = 'UPDATE yuni_comments SET comment=? WHERE id=? and username=?';
   }
   $stmt = $conn->prepare($sql);
   if (isAdmin($user)) {
