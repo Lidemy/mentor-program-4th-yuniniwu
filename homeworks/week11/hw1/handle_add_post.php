@@ -15,10 +15,10 @@
     header("Location: index.php?errCode=1");
     die ('資料不齊全');
   }
-  
   $content = $_POST["message"];
   $username = $_SESSION['username'];
 
+  // 檢查權限
   if (!hasPermission($user, 'create', NULL)) {
     header("Location: index.php");
     exit;
@@ -33,4 +33,5 @@
   }
 
   header("Location: index.php");
+  exit;
 ?>

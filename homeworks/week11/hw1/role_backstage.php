@@ -70,11 +70,13 @@
               <?php 
                 if ($row['role'] === 'NORMAL') {
                   echo "一般使用者";
-                } else if ($row['role'] === 'BANNED') {
-                  echo "已停權";
-                } else {
-                  echo "管理員";
                 }
+                if ($row['role'] === 'BANNED') {
+                  echo "已停權";
+                }
+                if ($row['role'] === 'ADMIN') {
+                  echo "管理員";
+                } 
               ?>
             </td>
             <td class="tdBtn">

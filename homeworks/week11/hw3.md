@@ -9,7 +9,7 @@
 - 對稱式加密：
   - 加密解密用同一個金鑰（Key）：凱薩加密法（Caesar cipher）就是把每個英文字加上一個固定的偏移量，以得到加密後的結果。高級一點的有 AES (Advanced Encryption Standard) ，AES 是一種對稱加密演算法，他的 Key 可以高達 $10^{37}$ 種。
   - 優點：速度快，需要較少的計算資源
-  - 缺點：知道 Key 就可以被逆推，Key 的傳送可能會被攔截。
+  - 缺點：知道 Key 就**可以被逆推**，Key 的傳送可能會被攔截。
 - 非對稱式加密
   - 一組兩個 Key 分別叫公鑰（Public Key）跟私鑰（Private Key）， 用公鑰加密的內容只能用私鑰解。
   - 下面舉例：小明知道小美又要傳情書給他了，小明(要接收密碼的那一端)先產生一對公鑰、私鑰。把公鑰寄給小美，讓小美用公鑰對情書加密，再把情書寄給小明。小明收到之後就可以用他手上的私鑰解開。
@@ -18,7 +18,7 @@
 
 #### 雜湊 (Hash)
 
-- 無法被逆推
+- **無法被逆推**
 - 經過雜湊演算法算出來的職稱為雜湊值。
 - 無限的組合會對應到有限的值。
 - 可能發生碰撞（ 2 組不同的 input 雜湊之後得到 1 組一模一樣的 output，機率很小）。
@@ -56,7 +56,27 @@
 ---
 ##  請說明 XSS 的攻擊原理以及防範方法
 
-XSS 跟 SQL Injection 有點類似。但差別在用的是 Javascript。駭客會在任何可以插入 JS 語法的地方試著攻擊，在網站中植入惡意的 script，當其他的用戶瀏覽到這個網站時，這段 code 被執行，駭客就可以知道這個用戶的 Cookie、或把這個用戶導到其他的網站。XSS 最根本的防禦方法是，對所有的輸出都做跳脫字元 encoding。
+XSS 跟 SQL Injection 有點類似。但差別在於利用的是 HTML 的 `<script>` 標籤，在網頁中插入惡意的語法。當其他的用戶瀏覽到這個網站時，這段 code 被執行，駭客就可以知道這個用戶的 Cookie、或把這個用戶導到其他的網站。XSS 最根本的防禦方法是，對所有的輸出內容都務必做驗證。處理之後再顯示在網頁上。可以使用跳脫字元的函式將輸出內容轉譯成純文字，在 `PHP` 中可以使用 `htmlspecialchars()`。
+
+常見的 XSS 有三種類型
+
+#### Stored XSS (儲存型)
+
+- 常見於：留言板、論壇。例如在使用者 po 文的編輯欄位，就能試著插入 XSS script。
+- XSS 的惡意 script 會被保存在資料庫中
+- 殺傷力最大，所有使用這個留言板的使用者都會受到攻擊。
+
+#### Reflected XSS (反射型)
+
+- 常見於：釣魚網址。用 GET 方法傳資料給 Server 的時候，Server 沒有經過檢查就將內容反映在網頁上。
+- XSS 的惡意 script 放在 URL，不會被存在資料庫中
+- 需要誘拐使用者點擊惡意連結，攻擊才會成立，通常會用釣魚手法、[社交工程](https://nicst.ey.gov.tw/Page/16FFA138E66A0905/6aececb4-50ec-4c3e-b331-d8e0ddfc4586)等方式來讓使用者點擊假連結。
+
+#### DOM-Based XSS (基於 DOM 的類型)
+
+- 在操作 DOM 的過程被植入惡意 script
+- 防禦方式：需要在前端防禦，避免在頁面中用到 `html()` 或是 `innerHTML()`。可以使用 `innerText` 取代 `innerHTML`。
+- - 通常需要搭配前兩個手法。讓內容保存在伺服器資料庫中、或是以反射型的方式製造出內容，再藉由JavaScript 動態產生有效的 DOM 物件來運行惡意代碼。
 
 
 ---
@@ -83,3 +103,5 @@ CSRF 就是在不同的 domain 底下卻能夠偽造「使用者本人發出的 
 [PHP：require V.S. include « 程式初學者](http://code-beginner.logdown.com/posts/389687-phprequire-vs-include)
 
 [[第十二週] 資訊安全 - 常見攻擊：XSS、SQL Injection | Yakim shu](https://yakimhsu.com/project/project_w12_Info_Security-XSS_SQL.html)
+
+[【網頁安全】給網頁開發新人的 XSS 攻擊 介紹與防範 @程式設計板 哈啦板 - 巴哈姆特](https://forum.gamer.com.tw/Co.php?bsn=60292&sn=11267)

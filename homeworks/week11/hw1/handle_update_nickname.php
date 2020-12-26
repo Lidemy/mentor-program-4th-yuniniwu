@@ -16,8 +16,7 @@
 
   $sql = "UPDATE `yuni_users` SET nickname=? WHERE username=?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('ss', $nickname,$username);
-
+  $stmt->bind_param('ss', $nickname, $username);
   $result = $stmt->execute();
 
   if(!$result) {
@@ -25,4 +24,5 @@
   }
   
   header("Location: index.php");
+  exit;
 ?>

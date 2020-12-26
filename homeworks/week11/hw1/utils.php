@@ -36,8 +36,8 @@
     }
     // 被停權的使用者
     if ($user['role'] === 'BANNED') { 
-      /*  
-          return $action !== 'create'; //不能新增文章 除了 create 以外都會回傳 true 
+      /* 
+          return $action !== 'create'; 
           寫上面這樣的話，會出現 bug: 被停權的使用者的視角中，所有留言都有編輯刪除功能。
       */
       if ($action === 'create') return false;

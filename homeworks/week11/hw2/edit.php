@@ -3,7 +3,7 @@
     require_once('conn.php');
     require_once('utils.php');
 
-    $id = NULL; // ?
+    $id = NULL;
     if (!empty($_GET['id'])) {
       $id = intval($_GET['id']);
     } 

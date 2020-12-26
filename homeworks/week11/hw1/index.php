@@ -115,7 +115,6 @@
         <h3>Comments</h3>
       </section>
         
-      <!-- 分隔線 -->
       <div class="horizonLine"></div>
 
       <!-- 顯示留言區 -->

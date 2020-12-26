@@ -31,4 +31,5 @@
   }
   
   header("Location: role_backstage.php");
+  exit;
 ?>

@@ -27,7 +27,7 @@
     // 如果一個資料都拿不到，代表 username 不存在
     if ($result->num_rows === 0){
       header('Location: login.php?errCode=2');
-      exit();
+      exit;
     }
 
     // 產生 CSRF token
@@ -39,8 +39,9 @@
     if(password_verify($password, $row['password'])){
         $_SESSION['username'] = $username;
         header('Location: index.php');
+        exit;
     } else {
         header('Location: login.php?errCode=2');
-        die();
+        exit;
     }
 ?>

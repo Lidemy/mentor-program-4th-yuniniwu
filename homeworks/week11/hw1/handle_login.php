@@ -25,7 +25,7 @@
 
   if ($result->num_rows === 0){
     header('Location: login.php?errCode=2');
-    exit();
+    exit;
   }
 
   // 有查到使用者
@@ -33,6 +33,7 @@
   if(password_verify($password, $row['password'])){
     $_SESSION['username'] = $username;
     header('Location: index.php');
+    exit;
   } else {
     header('Location: login.php?errCode=2');
     die();

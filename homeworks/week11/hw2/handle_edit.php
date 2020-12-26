@@ -24,9 +24,10 @@
         exit;
     }
 
-    $sql = "UPDATE yuni_blog_articles SET title = ? ,content = ? WHERE id = ?";
+    // 必須是文章作者才能編輯文章
+    $sql = "UPDATE yuni_blog_articles SET title = ? ,content = ? WHERE id = ? && username = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('ssi' ,$title ,$content ,$id);
+    $stmt->bind_param('ssis', $title, $content, $id, $username);
     $result = $stmt->execute();
     if (!$result) {
         die('Error:' . $conn_error);
@@ -34,4 +35,5 @@
     
     // 編輯成功導回文章列表
     header('Location: blog.php');
+    exit;
 ?>

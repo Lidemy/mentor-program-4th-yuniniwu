@@ -6,7 +6,7 @@
   if(
     empty($_POST['message'])
   ) {
-    header('Location: update_comment.php?errCode=1&id=' . $_POST['id']);
+    header('Location: update_comment.php?errCode=1&id=' . escape($_POST['id']));
     die ('資料不齊全');
   }
 
@@ -33,4 +33,5 @@
   }
   
   header('Location: index.php');
+  exit;
 ?>

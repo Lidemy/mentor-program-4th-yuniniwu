@@ -65,7 +65,7 @@
             <textarea name="message" cols="30" rows="5"><?php echo escape($row['comment'])?></textarea>
 
             <!-- 加上隱藏的 input 欄位，用來把 id 帶到下一個頁面（handle_update_comment.php） -->
-            <input type="hidden" name="id" value="<?php echo $row['id']?>">
+            <input type="hidden" name="id" value="<?php echo escape($row['id'])?>">
             <input class="inputBtn" type="submit" value="送 出">
           </form>
         <?php

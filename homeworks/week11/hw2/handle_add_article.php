@@ -32,4 +32,5 @@
     
     // 編輯成功導回文章列表
     header('Location: blog.php');
+    exit;
 ?>
