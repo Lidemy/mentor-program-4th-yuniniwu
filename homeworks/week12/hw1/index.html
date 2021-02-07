@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.css">
+    <style>
+      .card {
+        margin-bottom: 10px;
+      }
+    </style>
+  <title>week12 留言板</title>
+</head>
+<body>
+  <div class="container">
+    <!-- heading -->
+    <nav class="navbar navbar-light bg-light mb-3">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">留言板</span>
+      </div>
+    </nav>
+    <!-- form -->
+    <form class="add-submit-form">
+      <div class="form-group">
+        <div class="mb-3">
+          <label for="form-nickname" class="form-label">暱稱</label>
+          <input name="nickname" type="text" class="form-control" id="exampleInputEmail1" >
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="content-textarea">來留言吧</label>
+        <textarea class="form-control" id="content-textarea"
+          rows="3" name="content"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary mb-3">send</button>
+    </form>
+    <div class="comments mb-5">
+    </div>  
+  </div>
+  <script>
+    // 防止 XSS 
+    function escape(toOutput) {
+      return toOutput.replace(/\&/g, '&amp;')
+        .replace(/\</g, '&lt;')
+        .replace(/\>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/\'/g, '&#x27')
+        .replace(/\//g, '&#x2F')
+    }
+
+
+    // 拿資料
+    function getCommentsAPI(siteKey, cursorID, cb) {
+      let url = `http://localhost:8080/week12/hw1/api_comments.php?site_key=${siteKey}`
+
+      if (cursorID) {
+        url += '&cursor_id=' + cursorID
+      }
+
+      $.ajax({
+        url,
+      }).done(function (data) {
+        cb(data)
+      });
+    }
+    
+    // 把拿到的資料動態新增到 HTML 
+    function appendCommentToDOM(container, comment, isPrepend) {
+      const html = `
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">${comment.id} ${escape(comment.nickname)}</h5>
+                <p class="card-text">${escape(comment.content)}
+                </p>
+              </div>
+            </div>
+          `
+      if (isPrepend) {
+        container.prepend(html)
+      } else {
+        container.append(html)
+      }
+    }
+
+
+    // 把拿到的資料印出來
+    function getComments() {
+      $('.load-more').hide()
+      if (isEnd) {
+        return
+      }
+
+      getCommentsAPI(siteKey, cursorID, data => {
+        if (!data.ok) {
+          alert(data.message)
+          return
+        }
+
+        const comments = data.discussions
+        for (let comment of comments) {
+          appendCommentToDOM(commentDOM, comment)
+        }
+        const length  = comments.length
+        
+        // 當特定條件(最舊的一筆資料已經顯示)成立時，載入更多按鈕就不會出現
+        if (cursorID < length && cursorID !== null) {
+          isEnd = true
+          $('.load-more').hide()
+        } else {
+          cursorID = comments[length - 1].id
+          commentDOM.append(loadMoreButtonHTML)
+        }
+      })
+    }
+
+    // 變數宣告
+    const siteKey = 'test'
+    const loadMoreButtonHTML = '<button type="button" class="btn btn-success load-more">載入更多</button>'
+    let cursorID = null
+    let isEnd = false
+    const commentDOM = $('.comments')
+
+
+    // 印出最新的五筆資料
+    getComments()
+
+    // 按下載入更多，印出接下來的 5 筆資料
+    commentDOM.on('click', '.load-more', () => {
+      getComments()
+    })
+
+    // 新增留言
+    $('.add-submit-form').submit(e => {
+      e.preventDefault();
+      const newCommentData = {
+        site_key: 'test',
+        nickname: $('input[name=nickname]').val(),
+        content: $('textarea[name=content]').val()
+      }
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8080/week12/hw1/api_add_comments.php',
+        data: newCommentData
+      }).done(function (data) {
+        if (!data.ok) {
+          alert(data.message)
+          return
+        }
+        $('input[name=nickname]').val('')
+        $('textarea[name=content]').val('')
+        
+        // 拿資料庫裡最新的那筆資料，放到最上面
+        getCommentsAPI(siteKey, null, data => {
+          if (!data.ok) {
+            alert(data.message)
+            return
+          }
+          const comments = data.discussions
+          appendCommentToDOM(commentDOM, comments[0], true)
+        })
+        
+      });
+    })
+  </script>
+</body>
+</html>
