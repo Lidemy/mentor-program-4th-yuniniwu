@@ -22,9 +22,9 @@
   $id = $_POST['id'];
 
   // 寫入資料庫
-  $sql = "UPDATE yuni_todos SET content = ? WHERE id = $id";
+  $sql = "UPDATE yuni_todos SET content = ? WHERE id = ?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param('s', $content);
+  $stmt->bind_param('si', $content, $id);
   $result = $stmt->execute();
 
   if(!$result) {
