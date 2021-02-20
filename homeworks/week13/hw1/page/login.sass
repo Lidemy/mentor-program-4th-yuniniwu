@@ -1,0 +1,42 @@
+@import ../base/_variables
+@import ../base/_mixins
+@import ../base/_components
+@import ../base/_layout
+@import ../base/_reset
+
+.login-wrapper
+  @include center(center, unset)
+  @include center-margin
+  border: solid 1px $bg-primary-color
+  width: 527px
+  flex-direction: column
+  padding: 62px 72px
+  margin-top: -30px
+  background: white
+
+  & form
+    width: 100%
+
+  & input
+    width: 100%
+
+  & input[type="submit"]
+    height: 56px
+    background-image: linear-gradient(to top, $bg-primary-color, $bg-secondary-color)
+    color: $color-white
+    margin-top: 73px
+
+  & h2
+    font-size: $font-xl
+    font-weight: normal
+
+.input__wrapper + .input__wrapper
+  margin-top: 23px
+
+.input__field
+  margin-top: 16px
+  height: 40px
+
+.input__label
+  font-size: $font-xs
+  margin-left: 21px

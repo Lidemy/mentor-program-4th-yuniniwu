@@ -1,0 +1,41 @@
+@import ../base/_variables
+@import ../base/_mixins
+@import ../base/_components
+@import ../base/_layout
+@import ../base/_reset
+
+.posts,
+.container
+  @include center-margin
+  display: inline-flex
+  background: white
+  padding: 6px
+  margin-top: -30px
+  flex-direction: column
+
+.post
+  width: 900px
+  padding: 30px
+  border: solid 1px #9a9a9a
+
+  & + .post
+    margin-top: 24px
+
+  &__header
+    font-size: $font-s
+    @include center(center, space-between)
+
+  &__action
+    @extend %btn
+    padding: 3px 12px
+    font-size: $font-xs
+
+  &__info
+    margin-top: 19px
+    padding: 12px 22px
+    background: $color-white
+
+  &__content
+    margin-top: 17px
+    white-space: pre-wrap
+    line-height: 1.5em

@@ -1,0 +1,39 @@
+@import ../base/_variables
+@import ../base/_mixins
+@import ../base/_components
+@import ../base/_layout
+@import ../base/_reset
+
+.container
+  @include center-margin
+  display: inline-flex
+  background: white
+  padding: 6px
+  margin-top: -30px
+  flex-direction: column
+
+.edit-post
+  width: 900px
+  padding: 30px
+  border: solid 1px $color-gray-3
+
+  &__title
+    font-size: $font-m
+
+  &__input-wrapper
+    width: 100%
+    margin-top: 28px
+
+  &__input-wrapper input,
+
+  &__input-wrapper textarea
+    width: 100%
+    padding: 6px
+
+  &__btn-wrapper
+    text-align: right
+
+  &__btn
+    @extend %btn
+    padding: 10px 39px
+    margin-top: 25px
