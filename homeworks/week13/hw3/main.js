@@ -1,99 +1,86 @@
-const getGamesURL = "https://api.twitch.tv/kraken/games/top?limit=5";
-const getStreamsURL = "https://api.twitch.tv/kraken/streams/?game=";
-const errMsg = "系統不穩定，請再試一次";
+const API_URL = "https://api.twitch.tv/kraken"
+const CLIENT_ID = "vw9qvpsg84wszv7m8phzejcda7t8tn"
+const errMsg = "系統不穩定，請再試一次"
+const streamTemplate = `
+        <div class="stream">
+          <a href="$streamURL"><img src="$preview"/><a/>
+          <div class="stream_data">
+            <div class="stream_logo">
+              <img src="$logo"/>
+            </div>
+            <div class="stream_intro">
+              <div class="stream_title">$title</div>
+              <div class="stream_channel">$name</div>
+            </div>
+          </div>
+        </div>
+        `
 
-
-getTopGames(getGamesURL);
+getTopGames()
 
 // 點了會顯示第二個遊戲的實況
 document.querySelector(".navbar").addEventListener("click", (e) => {
   const gameName = e.target.innerText;
-  document.querySelector("h1").innerText = gameName;
+  changeGame(gameName)
+})
 
-  // 這裡沒清空的話永遠只會顯示第一個遊戲實況
-  document.querySelector(".streams").innerHTML = "";
-  getStreams(gameName);
-});
-
-// 拿前五個熱門遊戲放到 navbar，改用 fetch
-function getTopGames (url) {
-  fetch(url, {
-    method: 'GET',
+// 拿前五個熱門遊戲放到 navbar
+async function getTopGames () {
+  const response = await fetch(API_URL + "/games/top?limit=5", {
     headers: new Headers({
-      'Client-ID': 'vw9qvpsg84wszv7m8phzejcda7t8tn',
+      'Client-ID': CLIENT_ID,
       'Accept': 'application / vnd.twitchtv.v5 + json'
     })
   })
-  .then(response => {
-    if (response.status >= 200 && response.status < 400) {
-      return response.json()
-    } else {
-      alert(errMsg)
-    }
-  }).then(json => {
-    data = json.top;
-    for (let game of data) {
-      let element = document.createElement("li");
-      element.innerText = game.game.name;
-      document.querySelector(".navbar").appendChild(element);
+  const data  = await response.json()
+  const games = data.top
+  try {
+    for (let i = 0; i < 5; i++) {
+      const element = document.createElement('li')
+      element.innerText = games[i].game.name
+      document.querySelector('.navbar').appendChild(element)
     }
     // 顯示第一個遊戲的實況
-    document.querySelector("h1").innerText = data[0].game.name;
-    getStreams(data[0].game.name);
-  }).catch(err => {
-    alert(errMsg);
-    console.log('error:', err);
-    return;
-  })
+    changeGame(games[0].game.name)
+  } catch (err) {
+    alert(errMsg)
+    console.log(err)
+  }
 }
 
 // 取得特定遊戲的前 20 個熱門 live stream
-function getStreams(gameName) {
-  fetch(getStreamsURL + encodeURIComponent(gameName), {
-    method: 'GET',
+async function getStreams(gameName) {
+  const response = await fetch(API_URL + "/streams/?game=" + encodeURIComponent(gameName), {
     headers: new Headers({
-      'Client-ID': 'vw9qvpsg84wszv7m8phzejcda7t8tn',
+      'Client-ID': CLIENT_ID,
       'Accept': 'application / vnd.twitchtv.v5 + json'
     })
-  }).then(response => {
-      return response.json()
-    }).then(json => {
-      const streamsData = json.streams
-      console.log(streamsData)
-      for (let stream of streamsData) {
-        let element = document.createElement("div")
-        document.querySelector(".streams").appendChild(element)
-        element.outerHTML = `
-              <div class="stream">
-                <a href="${stream.channel.url}"><img src="${stream.preview.large}"/><a/>
-                <div class="stream_data">
-                  <div class="stream_logo">
-                    <img src="${stream.channel.logo}"/>
-                  </div>
-                  <div class="stream_intro">
-                    <div class="stream_title">${stream.channel.status}</div>
-                    <div class="stream_channel">${stream.channel.display_name}</div>
-                  </div>
-                </div>
-              </div>
-              `
-      }
-    })
+  })
+  const data = await response.json()
+  return data
 }
 
-// function GETbyFetch (url) {
-//   fetch(url, {
-//     method: 'GET',
-//     headers: new Headers({
-//       'Client-ID': 'vw9qvpsg84wszv7m8phzejcda7t8tn',
-//       'Accept': 'application / vnd.twitchtv.v5 + json'
-//     })
-//   }).then(response => {
-//     if (response.status >= 200 && response.status < 400) {
-//       return response.json()
-//     } else {
-//       alert(errMsg);
-//       return;
-//     }
-//   })
-// }
+async function changeGame(gameName) {
+  document.querySelector("h1").innerText = gameName
+  document.querySelector(".streams").innerHTML = ""
+  try {
+    const data = await getStreams(gameName)
+    for (let i = 0; i < 20; i++) {
+      appendStream(data.streams[i])
+    }
+  } catch (err) {
+    alert(errMsg)
+    console.log(err)
+  }
+}
+
+function appendStream(stream) {
+  let element = document.createElement("div")
+  document.querySelector(".streams").appendChild(element)
+  element.outerHTML = streamTemplate
+    .replace('$streamURL', stream.channel.url)
+    .replace('$preview', stream.preview.medium)
+    .replace('$logo', stream.channel.logo)
+    .replace('$title', stream.channel.status)
+    .replace('$name', stream.channel.name)
+}
