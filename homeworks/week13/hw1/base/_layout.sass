@@ -1,0 +1,66 @@
+.wrapper
+  @include center-margin
+  max-width: 1280px
+  padding: 0px 12px
+
+.banner
+  @include center(center, center)
+  background-image: linear-gradient(to top, $bg-primary-color, $bg-secondary-color)
+  height: 240px
+  color: $color-white
+  flex-direction: column
+
+  &__wrapper > div
+    margin-top: 26px
+
+  & h1
+    font-size: $font-l
+    margin: 0
+
+.container-wrapper
+  @include center(unset, center)
+  padding-bottom: 138px
+  min-height: calc(100vh - 350px)
+
+.navbar
+  height: 80px
+
+  &__site-name
+    font-size: $font-l
+    font-weight: bold
+
+  &__site-name a
+    text-decoration: none
+    color: $primary-color
+
+  &__list
+    @include center(unset, space-between)
+    flex: 1
+    margin: 0
+    padding: 0
+    list-style: none
+
+  &__list > div
+    display: flex
+
+  &__list li
+    margin-left: 21px
+
+  &__list a
+    text-decoration: none
+    color: $secondary-color
+    font-size: $font-s
+
+  &__wrapper
+    @include center(center, unset)
+    height: 100%
+
+footer
+  padding: 10px 0px
+  background-color: $bg-third-color
+  font-size: $font-xs
+  color: $color-white
+  text-align: center
+
+*
+  box-sizing: border-box
