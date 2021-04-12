@@ -29,7 +29,7 @@ export default function Gomoku() {
         player={playerIsBlack}
         onClick={handleRestart}
       />
-      <Board squares={board.current} onClick={handleClick} />
+      <Board squares={board} onClick={handleClick} />
     </Container>
   );
 }

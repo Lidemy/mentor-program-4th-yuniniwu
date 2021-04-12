@@ -1,17 +1,17 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 export default function useGomoku() {
-  const board = useRef(Array(19).fill(Array(19).fill(null)));
+  const [board, setBoard] = useState(Array(19).fill(Array(19).fill(null)));
 
   const [playerIsBlack, setPlayerIsBlack] = useState(true);
   const [winner, setWinner] = useState(null);
   const blackOrWhite = playerIsBlack ? 'black' : 'white';
 
   const handleClick = (x, y) => {
-    if (board.current[y][x] || winner) return;
-    const newBoard = JSON.parse(JSON.stringify(board.current));
+    if (board[y][x] || winner) return;
+    const newBoard = JSON.parse(JSON.stringify(board));
     newBoard[y][x] = blackOrWhite;
-    board.current = newBoard;
+    setBoard(newBoard);
     setWinner(getWinner(newBoard, y, x));
     setPlayerIsBlack(!playerIsBlack);
   };
@@ -51,7 +51,7 @@ export default function useGomoku() {
   }
 
   const handleRestart = () => {
-    board.current = Array(19).fill(Array(19).fill(null));
+    setBoard(Array(19).fill(Array(19).fill(null)));
     setPlayerIsBlack(true);
     setWinner(null);
   };
