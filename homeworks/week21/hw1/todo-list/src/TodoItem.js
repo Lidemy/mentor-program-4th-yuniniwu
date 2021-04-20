@@ -75,7 +75,12 @@ const ButtonTodo = styled(ButtonDelete)`
   padding: 0.1rem 0.2rem;
 `;
 
-function TodoItem({ todo, handleDeleteItem, toggleIsDone, inputChange }) {
+export default function TodoItem({
+  todo,
+  handleDeleteItem,
+  toggleIsDone,
+  editTodo,
+}) {
   const { id, content, isDone } = todo;
   const [toggle, setToggle] = useState(true);
   const [text, setText] = useState(content);
@@ -90,7 +95,7 @@ function TodoItem({ todo, handleDeleteItem, toggleIsDone, inputChange }) {
 
   const handleInputChange = (e) => {
     const newContent = e.target.value;
-    inputChange(newContent, id);
+    editTodo(newContent, id);
     setText(newContent);
   };
 
@@ -131,5 +136,3 @@ function TodoItem({ todo, handleDeleteItem, toggleIsDone, inputChange }) {
     </ListItem>
   );
 }
-
-export default TodoItem;

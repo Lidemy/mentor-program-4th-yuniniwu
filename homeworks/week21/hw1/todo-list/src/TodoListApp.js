@@ -1,8 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { MEDIA_QUERY_S } from './constants/style.js';
 import TodoItem from './TodoItem';
+import FilterButton from './components/FilterButton';
+import useTodo from './useTodo';
 
 const Container = styled.div`
+  ${MEDIA_QUERY_S} {
+    background-color: ${(props) => props.theme.colors.bg_card};
+  }
+
   background-color: ${(props) => props.theme.colors.bg_main};
   height: 100%;
   display: flex;
@@ -14,7 +20,11 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Heading = styled.h1``;
+const Heading = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem;
+`;
 
 const Card = styled.div`
   background-color: ${(props) => props.theme.colors.bg_card};
@@ -25,6 +35,10 @@ const Card = styled.div`
   word-wrap: break-word;
   text-align: center;
   padding: 1rem 3rem;
+
+  ${MEDIA_QUERY_S} {
+    box-shadow: none;
+  }
 `;
 
 const InputArea = styled.div`
@@ -44,6 +58,10 @@ const TextInput = styled.input`
   background-clip: padding-box;
   border: 1px solid ${(props) => props.theme.colors.shadow};
   border-radius: 0.4rem;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
@@ -65,19 +83,6 @@ const Button = styled.button`
   }
 `;
 
-const ButtonFilter = styled(Button)`
-  font-size: 0.8rem;
-  padding: 0.18rem 0.4rem;
-`;
-
-const ButtonSave = styled(Button)`
-  background-color: ${(props) => props.theme.colors.btn_save};
-  width: 100%;
-  height: 2rem;
-  padding: 0.1rem 0.2rem;
-  font-size: 0.7rem;
-`;
-
 const ButtonClear = styled(Button)`
   background-color: ${(props) => props.theme.colors.bg_danger};
   color: ${(props) => props.theme.colors.btn_danger};
@@ -85,11 +90,6 @@ const ButtonClear = styled(Button)`
   height: 2rem;
   padding: 0.1rem 0.2rem;
   font-size: 0.7rem;
-`;
-
-const ButtonGroup = styled.div`
-  margin: 0.2rem 0;
-  display: inline-flex;
 `;
 
 const ListGroup = styled.ul`
@@ -104,98 +104,20 @@ const Footer = styled.div`
   padding-left: 0.3rem;
 `;
 
-function saveTodosToLocalStorage(todos) {
-  window.localStorage.setItem('todos', JSON.stringify(todos));
-}
-
-function handleTodoCounter(todos) {
-  return todos.filter((todo) => !todo.isDone).length;
-}
-
-let todoItemCounter;
-
-function TodoListApp() {
-  const id = useRef(1);
-  const [todos, setTodos] = useState(() => {
-    let todoData = window.localStorage.getItem('todos') || '';
-    if (todoData) {
-      todoData = JSON.parse(todoData);
-    } else {
-      todoData = [];
-    }
-    return todoData;
-  });
-  const [inputValue, setInputValue] = useState('');
-  const [filterValue, setFilterValue] = useState(todos);
-
-  useEffect(() => {
-    saveTodosToLocalStorage(todos);
-    setFilterValue(todos);
-    todoItemCounter = handleTodoCounter(todos);
-  }, [todos]);
-
-  const handleAddItem = () => {
-    if (!inputValue) return;
-    setTodos([
-      {
-        id: id.current,
-        content: inputValue,
-        isDone: false,
-      },
-      ...todos,
-    ]);
-    setInputValue('');
-    id.current++;
-  };
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleDeleteItem = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const handleClearCompletedItem = () => {
-    setTodos(todos.filter((todo) => !todo.isDone));
-  };
-
-  const toggleIsDone = (id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id !== id) return todo;
-        return {
-          ...todo,
-          isDone: !todo.isDone,
-        };
-      })
-    );
-  };
-
-  const inputChange = (input, id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id !== id) return todo;
-        return {
-          ...todo,
-          content: input,
-        };
-      })
-    );
-  };
-
-  const handleFilter = (e) => {
-    const selectedButton = e.target.innerText;
-    if (selectedButton === 'All') {
-      setFilterValue(todos);
-    }
-    if (selectedButton === 'Done') {
-      setFilterValue(todos.filter((todo) => todo.isDone));
-    }
-    if (selectedButton === 'to Do') {
-      setFilterValue(todos.filter((todo) => !todo.isDone));
-    }
-  };
+export default function TodoListApp() {
+  const {
+    inputValue,
+    filterValue,
+    filterType,
+    todoCounter,
+    editTodo,
+    handleFilter,
+    handleAddItem,
+    handleInputChange,
+    handleDeleteItem,
+    toggleIsDone,
+    handleClearCompletedItem,
+  } = useTodo();
 
   return (
     <Container>
@@ -209,6 +131,8 @@ function TodoListApp() {
           ></TextInput>
           <Button onClick={handleAddItem}>新增</Button>
         </InputArea>
+        <FilterButton handleFilter={handleFilter} value={filterType} />
+
         <ListGroup>
           {filterValue.map((todo) => (
             <TodoItem
@@ -216,24 +140,16 @@ function TodoListApp() {
               todo={todo}
               handleDeleteItem={handleDeleteItem}
               toggleIsDone={toggleIsDone}
-              inputChange={inputChange}
+              editTodo={editTodo}
             />
           ))}
         </ListGroup>
+
         <Footer>
-          {todoItemCounter} items left
+          {todoCounter} items left
           <ButtonClear onClick={handleClearCompletedItem}>Clear</ButtonClear>
         </Footer>
-
-        <ButtonGroup>
-          <ButtonFilter onClick={handleFilter}>All</ButtonFilter>
-          <ButtonFilter onClick={handleFilter}>Done</ButtonFilter>
-          <ButtonFilter onClick={handleFilter}>to Do</ButtonFilter>
-        </ButtonGroup>
-        <ButtonSave>儲存目前清單</ButtonSave>
       </Card>
     </Container>
   );
 }
-
-export default TodoListApp;
