@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 export default function useGomoku() {
   const [board, setBoard] = useState(Array(19).fill(Array(19).fill(null)));
-
   const [playerIsBlack, setPlayerIsBlack] = useState(true);
   const [winner, setWinner] = useState(null);
   const blackOrWhite = playerIsBlack ? 'black' : 'white';
 
   const handleClick = (x, y) => {
     if (board[y][x] || winner) return;
+
     const newBoard = JSON.parse(JSON.stringify(board));
     newBoard[y][x] = blackOrWhite;
     setBoard(newBoard);
@@ -19,7 +19,6 @@ export default function useGomoku() {
   // count continuation of one side
   function countTotal(board, currentY, currentX, directionY, directionX) {
     const currentPlayer = board[currentY][currentX];
-
     let tempX = currentX;
     let tempY = currentY;
 
@@ -36,6 +35,7 @@ export default function useGomoku() {
         break;
       }
     } while (true);
+
     return total;
   }
 

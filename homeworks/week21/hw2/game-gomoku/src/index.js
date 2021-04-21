@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Gomoku from './Gomoku';
-import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from 'styled-components';
 
 const theme = {
@@ -28,5 +27,3 @@ ReactDOM.render(
   </ThemeProvider>,
   document.getElementById('root')
 );
-
-reportWebVitals();

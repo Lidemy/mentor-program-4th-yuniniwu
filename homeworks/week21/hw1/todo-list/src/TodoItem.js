@@ -26,6 +26,10 @@ const EditContent = styled.input`
   line-height: 1.5;
   padding: 0.2rem 0.4rem;
   color: ${(props) => props.theme.colors.font_main};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Button = styled.button`
@@ -93,7 +97,7 @@ export default function TodoItem({
     toggleIsDone(id);
   };
 
-  const handleInputChange = (e) => {
+  const handleTodoEdit = (e) => {
     const newContent = e.target.value;
     editTodo(newContent, id);
     setText(newContent);
@@ -108,13 +112,13 @@ export default function TodoItem({
             setToggle(false);
           }}
         >
-          {text}
+          {content}
         </TodoContent>
       ) : (
         <EditContent
           type='text'
           value={text}
-          onChange={handleInputChange}
+          onChange={handleTodoEdit}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === 'Escape') {
               setToggle(true);

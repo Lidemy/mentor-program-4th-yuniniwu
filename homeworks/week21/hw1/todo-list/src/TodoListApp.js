@@ -110,13 +110,13 @@ export default function TodoListApp() {
     filterValue,
     filterType,
     todoCounter,
-    editTodo,
     handleFilter,
     handleAddItem,
     handleInputChange,
     handleDeleteItem,
     toggleIsDone,
     handleClearCompletedItem,
+    editTodo,
   } = useTodo();
 
   return (
