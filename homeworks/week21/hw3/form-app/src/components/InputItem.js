@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const FormRow = styled.div`
   margin: 5vmin 0;
@@ -69,6 +70,18 @@ const InputItem = ({
   );
 };
 
+InputItem.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  question: PropTypes.string,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool,
+  hasError: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  handleInputChange: PropTypes.func,
+};
+
 const Radio = ({ name, value, checked, label, handleInputChange }) => {
   return (
     <div>
@@ -87,14 +100,22 @@ const Radio = ({ name, value, checked, label, handleInputChange }) => {
   );
 };
 
+Radio.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  label: PropTypes.string,
+  handleInputChange: PropTypes.func,
+};
+
 const OptionItem = ({
   name,
   value,
   question,
-  handleInputChange,
   required,
   hasError,
   errorMessage,
+  handleInputChange,
 }) => {
   return (
     <FormRow>
@@ -119,6 +140,16 @@ const OptionItem = ({
       {required && hasError && !value && <Alert>{errorMessage}</Alert>}
     </FormRow>
   );
+};
+
+OptionItem.propTypes = {
+  name: PropTypes.string,
+  value: PropTypes.string,
+  question: PropTypes.string,
+  required: PropTypes.bool,
+  hasError: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  handleInputChange: PropTypes.func,
 };
 
 export { InputItem, OptionItem };

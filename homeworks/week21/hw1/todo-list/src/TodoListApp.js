@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { MEDIA_QUERY_S } from './constants/style.js';
-import TodoItem from './TodoItem';
+import TodoItem from './components/TodoItem';
 import FilterButton from './components/FilterButton';
 import useTodo from './useTodo';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   ${MEDIA_QUERY_S} {
@@ -153,3 +154,17 @@ export default function TodoListApp() {
     </Container>
   );
 }
+
+TodoListApp.propTypes = {
+  inputValue: PropTypes.array,
+  filterValue: PropTypes.array,
+  filterType: PropTypes.array,
+  todoCounter: PropTypes.array,
+  handleFilter: PropTypes.func,
+  handleAddItem: PropTypes.func,
+  handleInputChange: PropTypes.func,
+  handleDeleteItem: PropTypes.func,
+  toggleIsDone: PropTypes.func,
+  handleClearCompletedItem: PropTypes.func,
+  editTodo: PropTypes.func,
+};
