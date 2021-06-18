@@ -35,7 +35,7 @@ server 必須在發送 Response 時，在 header 帶上允許跨域瀏覽的資�
 因為在第四週時是用電腦發送 Request，這週是使用瀏覽器發送 Request。
 
 使用瀏覽器發送的 Request 基本上都必須受到同源政策的束縛，只要 client 端跟 server 端是不同網域，就不能接收到 Response。
-但在實際的應用上，大部分的 client 端與 server 端都是不同的網域，因此有 CROS 產生，如果 server 需要回應不同網域的 Request，就必須在 Response 的 header 上開啟 "Access-Control-Allow-Origin " 的設定。
+但在實際的應用上，大部分的 client 端與 server 端都是不同的網域，因此有 CORS 這個規範產生，如果 server 需要回應不同網域的 Request，就必須在 Response 的 header 上開啟 "Access-Control-Allow-Origin " 的設定。
 
 基於資訊安全考量，我們對伺服器發送的 Request，如果沒有被對方伺服器允許，是收不到 Response 的。
 否則所有人都能看到 google 資料庫裡的所有東西，包含帳號、密碼、個資等等。
